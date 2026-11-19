@@ -4,7 +4,7 @@
    system, refined About, lightbox navigation.
    Content width: 1160px. `.wide` / `.cover` / `.panel.wide` may extend to 1360px.
    ========================================================================= */
-:root{--w:1160px;--wideW:1360px;--gut:clamp(24px,4vw,64px);--rad:clamp(12px,1.5vw,20px);--sp:clamp(56px,7vw,112px)}
+:root{--body:'Geist','Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--mono:'Geist','Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--w:1160px;--wideW:1360px;--gut:clamp(24px,4vw,64px);--rad:clamp(12px,1.5vw,20px);--sp:clamp(88px,11vw,176px)}
 .wide{width:calc(100% - var(--gut));max-width:var(--wideW);margin-inline:auto}
 .lab,.sublab,.cap-in{font-family:var(--mono);font-size:max(11px,.72vw);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
 .lab,.cap-in{margin:0}
@@ -246,3 +246,49 @@ body.case main{padding-top:0}
 @media (max-width:700px){.lb-nav{top:auto;bottom:14px;transform:none}.lb-nav.prev{left:calc(50% - 56px)}.lb-nav.next{right:calc(50% - 56px)}}
 
 .panel.dark .fg figcaption{color:rgba(255,255,255,.62)}
+
+/* ---------- V9.1: modern sans for text + labels, calmer hero, more white space ---------- */
+body{font-family:var(--body);font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
+/* labels that used to be mono: now Geist, medium weight, still small caps-style */
+.lab,.sublab,.cap-in,.kind,.eyebrow,.pj-tags,.pj-cta,.pj-n,.cm dt,.fg figcaption,.acad-note,.prev-link,.hint,.availability,.copy,.xn,.sel .dim,.guide span,.back-link,.about-lists h2,.footer-bottom,.text-link,.hero2 .cta,.hero2 .ghost,.menu-toggle{font-family:var(--mono);font-weight:500}
+.lab,.sublab,.cap-in,.kind,.pj-tags,.cm dt,.fg figcaption,.acad-note,.prev-link,.hint,.availability,.back-link{letter-spacing:.05em}
+/* menu: sentence case, easier to read */
+.nav{font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:0;text-transform:none}
+.nav .pill{font-size:14px;letter-spacing:0;text-transform:none;font-weight:500}
+.hero2 .cta,.hero2 .ghost,.text-link{font-size:14px;letter-spacing:.01em;text-transform:none;font-weight:500}
+.footer-bottom{text-transform:none;letter-spacing:0;font-size:14px}
+.hero2 .eyebrow{text-transform:none;letter-spacing:.01em;font-size:max(14px,1vw)}
+.hero2 .sub{font-size:clamp(17px,1.35vw,20px);line-height:1.5;max-width:30em}
+.pj-t p,.cd,.xp p,.about-story p{font-weight:400}
+
+/* hero: fewer pieces, more air */
+.hero2{min-height:min(100svh,900px)}
+.guide{display:none}
+.vec{height:92px;margin-top:clamp(14px,2vw,28px)}
+.hero2 .sub{margin-top:clamp(18px,2vw,30px)}
+.hero2 .actions{margin-top:clamp(28px,3.4vw,48px)}
+.vpts .a.key{fill:var(--red);stroke:#fff;stroke-width:2}
+.hint{text-transform:none;font-size:max(13px,.9vw);letter-spacing:0}
+.sel{transition:none}
+.sel .dim{top:calc(100% + 10px);right:0}
+
+/* white space */
+.work{padding-top:clamp(110px,13vw,200px)}
+.pj-grid{margin-top:clamp(48px,6vw,88px);gap:clamp(72px,9vw,140px) clamp(18px,2.4vw,36px)}
+.pj-c{padding-top:22px}
+.pj-t p{margin-top:10px}
+.about-strip{padding-block:clamp(120px,14vw,220px)}
+.ch{padding-top:clamp(110px,11vw,160px)}
+.ch-top{margin-bottom:clamp(40px,5.5vw,80px)}
+.cm{margin-top:clamp(48px,6vw,88px);padding:28px 0}
+.cover{margin-top:clamp(40px,5vw,72px)}
+.gal{gap:clamp(16px,2.2vw,32px)}
+.note{gap:12px clamp(24px,5vw,88px)}
+.nx{margin-top:clamp(110px,13vw,200px)}
+.about-page{padding-top:clamp(120px,13vw,180px)}
+.about-hero{padding-bottom:clamp(80px,10vw,150px)}
+.about-story,.experience-section{margin-bottom:clamp(88px,11vw,160px);padding-top:32px}
+.xp{padding:34px 0}
+.about-lists{padding-top:32px}
+.footer{padding-top:clamp(40px,5vw,80px)}
+@media (max-width:700px){.vec{height:64px}.pj-grid{gap:64px}.work{padding-top:96px}}

@@ -31,7 +31,7 @@ if(hero&&svg){
  const px=k=>[P[k][0]*W,P[k][1]*H];
  const els={};
  Object.keys(P).forEach(k=>{const isA=kind[k]==='a';const c=d.createElementNS(NS,isA?'rect':'circle');c.setAttribute('class',isA?'a':'c');
-  if(isA){c.setAttribute('width',10);c.setAttribute('height',10);c.setAttribute('rx',1.5)}else c.setAttribute('r',4.5);
+  if(isA){const z=k==='a1'?13:10;c.setAttribute('width',z);c.setAttribute('height',z);c.setAttribute('rx',1.5);if(k==='a1')c.classList.add('key')}else c.setAttribute('r',4.5);
   g.appendChild(c);els[k]=c;
   let id=null;
   c.addEventListener('pointerdown',e=>{id=e.pointerId;c.setPointerCapture(id);c.classList.add('on');e.preventDefault();e.stopPropagation()});
@@ -42,17 +42,23 @@ if(hero&&svg){
    draw()});
   const end=e=>{if(e.pointerId!==id)return;id=null;c.classList.remove('on')};c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);
  });
+ const selEl=hero.querySelector('.sel'),dimEl=hero.querySelector('.dim');
+ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+ function type(){ // the middle anchor sets the weight (height) and width (position) of "point of view."
+  if(!selEl)return;
+  const wt=Math.round(900-600*clamp((P.a1[1]-.1)/.9,0,1)),st=Math.round(78+24*clamp((P.a1[0]-.25)/.5,0,1));
+  selEl.style.fontWeight=wt;selEl.style.fontStretch=st+'%';
+  if(dimEl)dimEl.textContent=`Archivo · wght ${wt} · wdth ${st}`;
+ }
  function draw(){
+  type();
   const f=k=>px(k).map(v=>v.toFixed(1)).join(' ');
   path.setAttribute('d',`M${f('a0')} C${f('c0')} ${f('c1a')} ${f('a1')} C${f('c1b')} ${f('c2')} ${f('a2')}`);
   hl.setAttribute('d',`M${f('a0')} L${f('c0')} M${f('a1')} L${f('c1a')} M${f('a1')} L${f('c1b')} M${f('a2')} L${f('c2')}`);
-  Object.keys(P).forEach(k=>{const [x,y]=px(k),c=els[k];if(kind[k]==='a'){c.setAttribute('x',(x-5).toFixed(1));c.setAttribute('y',(y-5).toFixed(1))}else{c.setAttribute('cx',x.toFixed(1));c.setAttribute('cy',y.toFixed(1))}});
+  Object.keys(P).forEach(k=>{const [x,y]=px(k),c=els[k];if(kind[k]==='a'){const z=k==='a1'?6.5:5;c.setAttribute('x',(x-z).toFixed(1));c.setAttribute('y',(y-z).toFixed(1))}else{c.setAttribute('cx',x.toFixed(1));c.setAttribute('cy',y.toFixed(1))}});
  }
  function layout(){
   const r=svg.getBoundingClientRect();W=r.width;H=r.height;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);draw();
-  const sel=hero.querySelector('.sel'),dim=hero.querySelector('.dim'),l2=hero.querySelector('.l2'),gd=hero.querySelector('.guide');
-  if(sel&&dim){const s=sel.getBoundingClientRect();dim.textContent=`W ${Math.round(s.width)} × H ${Math.round(s.height)}`}
-  if(l2&&gd){const hr=hero.getBoundingClientRect(),lr=l2.getBoundingClientRect(),fs=parseFloat(getComputedStyle(l2).fontSize);gd.style.top=(lr.bottom-hr.top-fs*.2)+'px'}
  }
  layout();addEventListener('resize',layout);
  if(d.fonts?.ready)d.fonts.ready.then(layout);
